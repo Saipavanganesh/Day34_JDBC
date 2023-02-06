@@ -13,7 +13,11 @@ public class Payroll_JDBC {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM employee_payroll");
         while(resultSet.next()){
             String id = resultSet.getString("id");
-            System.out.println(id);
+            String name = resultSet.getString("name");
+            String salary = resultSet.getString("salary");
+            String start_date = resultSet.getString("start_date");
+            String gender = resultSet.getString("gender");
+            System.out.println(id + " " + name + " " + salary + " " + start_date + " " + gender);
         }
         connection.close();
     }
