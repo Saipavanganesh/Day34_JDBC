@@ -8,15 +8,9 @@ public class Payroll_JDBC {
         String url = "jdbc:mysql://localhost:3306/payroll_service";
         String username = "root";
         String password = "letmein";
-        String updateQuery = "UPDATE employee_payroll SET salary = ? WHERE name = ?";
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-//        statement.executeUpdate(updateQuery);
-        PreparedStatement ps = connection.prepareStatement(updateQuery);
-        ps.setInt(1,3000000);
-        ps.setString(2,"Raj");
-        ps.executeUpdate();
-        String query = "SELECT * FROM employee_payroll";
+        String query = "SELECT * FROM employee_payroll WHERE start_date BETWEEN CAST('2022-02-02' AS DATE) AND NOW();";
         ResultSet resultSet = statement.executeQuery(query);
         while(resultSet.next()){
             String id = resultSet.getString("id");
