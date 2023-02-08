@@ -10,15 +10,15 @@ public class Payroll_JDBC {
         String password = "letmein";
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-        String query = "SELECT * FROM employee_payroll WHERE start_date BETWEEN CAST('2022-02-02' AS DATE) AND NOW();";
+        String query = "SELECT SUM(salary), AVG(salary), MIN(salary), MAX(salary), COUNT(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;";
         ResultSet resultSet = statement.executeQuery(query);
         while(resultSet.next()){
-            String id = resultSet.getString("id");
-            String name = resultSet.getString("name");
-            String salary = resultSet.getString("salary");
-            String start_date = resultSet.getString("start_date");
-            String gender = resultSet.getString("gender");
-            System.out.println(id + " " + name + " " + salary + " " + start_date + " " + gender);
+            String sumOfSalary = resultSet.getString("SUM(salary)");
+            String avgOfSalary = resultSet.getString("AVG(salary)");
+            String minOfSalary = resultSet.getString("MIN(salary)");
+            String maxOfSalary = resultSet.getString("MAX(salary)");
+            String count = resultSet.getString("COUNT(salary)");
+            System.out.println(sumOfSalary + " " + avgOfSalary + " " + minOfSalary + " " + maxOfSalary + " " + count);
         }
         connection.close();
     }
