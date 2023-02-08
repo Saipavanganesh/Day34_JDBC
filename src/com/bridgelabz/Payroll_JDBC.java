@@ -8,10 +8,14 @@ public class Payroll_JDBC {
         String url = "jdbc:mysql://localhost:3306/payroll_service";
         String username = "root";
         String password = "letmein";
-        String updateQuery = "UPDATE employee_payroll SET salary = 32000000 WHERE name = \"Raj\"";
+        String updateQuery = "UPDATE employee_payroll SET salary = ? WHERE name = ?";
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-        statement.executeUpdate(updateQuery);
+//        statement.executeUpdate(updateQuery);
+        PreparedStatement ps = connection.prepareStatement(updateQuery);
+        ps.setInt(1,3000000);
+        ps.setString(2,"Raj");
+        ps.executeUpdate();
         String query = "SELECT * FROM employee_payroll";
         ResultSet resultSet = statement.executeQuery(query);
         while(resultSet.next()){
